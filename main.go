@@ -1,10 +1,9 @@
 package main
 
 import (
-	"go-crud/initializers"
-	"net/http"
-
 	"github.com/gin-gonic/gin"
+	"go-crud/controllers"
+	"go-crud/initializers"
 )
 
 func init() {
@@ -14,10 +13,10 @@ func init() {
 
 func main() {
 	r := gin.Default()
-	r.GET("/", func(c *gin.Context) {
-		c.JSON(http.StatusOK, gin.H{
-			"message": "pong",
-		})
-	})
+	r.POST("/posts", controllers.PostsCreate)
+	r.GET("/posts", controllers.PostsIndex)
+	r.GET("/posts/:id", controllers.PostsShow)
+	r.PUT("/posts/:id", controllers.PostsUpdate)
+	r.DELETE("/posts/:id", controllers.PostsDelete)
 	r.Run()
 }
